@@ -1,40 +1,20 @@
-﻿double[] numbers = new double [10];
+﻿int[] numbers = new int [4];
 int n = numbers.Length;
 
 FillArray(numbers);
 OutputArrayString(numbers);
-DifferenceМinМax(numbers);
+SumStandingElementsOddPositions(numbers);
 
-void FillArray(double[] array)
+void FillArray(int[] array)
 {
     Random rnd = new Random();
     for (int i = 0; i < n; i++)
     {
-        array[i] = Math.Round(rnd.NextDouble() * 100);
+        array[i] = rnd.Next(-50, 50);
     }
 }
 
-void DifferenceМinМax(double[] number)
-{
-    double min = number[0];
-    double max = number[0];
-    for (int i = 0; i < n; i++)
-    {
-        if (number[i] > max)
-        {
-            max = number[i];
-        }
-        if (number[i] < min)
-        {
-            min = number[i];
-        }
-    }
-    double diff = max - min;
-    Console.WriteLine($" -> разница между максимальным элементом {max} " +
-                      $"и минимальным элементом {min} массива равна: {diff}");
-}
-
-void OutputArrayString(double[] arrayString)
+void OutputArrayString(int[] arrayString)
 {
     string stringArray = "[";
 
@@ -46,4 +26,18 @@ void OutputArrayString(double[] arrayString)
     stringArray = stringArray.Remove(n - 2, 2);
     stringArray += "]";
     Console.Write($"Массив: {stringArray}");
+}
+
+void SumStandingElementsOddPositions(int[] number)
+{
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (i % 2 != 0)
+        {
+            sum += number[i];
+        }
+    }
+    Console.WriteLine($" -> сумма чисел стоящих на нечётных позициях " +
+                      $"в массиве равна: {sum}");
 }
