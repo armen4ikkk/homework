@@ -1,25 +1,49 @@
-﻿using System;
-using static System.Console;
+﻿double[] numbers = new double [10];
+int n = numbers.Length;
 
-Clear();
-int[] array = randomArray(4);
-WriteLine($"[{string.Join(",",array)}] -> {countOfEven(array)}");
+FillArray(numbers);
+OutputArrayString(numbers);
+DifferenceМinМax(numbers);
 
-int[] randomArray(int size) {
-    Random random = new Random();
-    int[] array = new int[size];
-    for(int i = 0; i < array.Length; i++) {
-        array[i] = random.Next(100,1000);
+void FillArray(double[] array)
+{
+    Random rnd = new Random();
+    for (int i = 0; i < n; i++)
+    {
+        array[i] = Math.Round(rnd.NextDouble() * 100);
     }
-    return array;
 }
 
-int countOfEven(int[] array) {
-    int count = 0;
-    for(int i = 0; i < array.Length; i++) {
-        if(array[i] % 2 == 0) {
-            count++;
+void DifferenceМinМax(double[] number)
+{
+    double min = number[0];
+    double max = number[0];
+    for (int i = 0; i < n; i++)
+    {
+        if (number[i] > max)
+        {
+            max = number[i];
+        }
+        if (number[i] < min)
+        {
+            min = number[i];
         }
     }
-    return count;
+    double diff = max - min;
+    Console.WriteLine($" -> разница между максимальным элементом {max} " +
+                      $"и минимальным элементом {min} массива равна: {diff}");
+}
+
+void OutputArrayString(double[] arrayString)
+{
+    string stringArray = "[";
+
+    for (int i = 0; i < arrayString.Length; i++)
+    {
+        stringArray += $"{arrayString[i]}, ";
+    }
+    int n = stringArray.Length;
+    stringArray = stringArray.Remove(n - 2, 2);
+    stringArray += "]";
+    Console.Write($"Массив: {stringArray}");
 }
