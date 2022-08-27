@@ -1,22 +1,30 @@
-﻿int[] numbers = new int [4];
-int n = numbers.Length;
+﻿Console.Write("Введите целые числа через пробел: ");
+string[] arrayM = Console.ReadLine().Split().ToArray();
 
-FillArray(numbers);
-OutputArrayString(numbers);
-SumStandingElementsOddPositions(numbers);
+int[] resultM = new int[arrayM.Length];
 
-void FillArray(int[] array)
+ExceptionHandling(arrayM);
+int countM = GetCountNumbers(resultM);
+string str = "числа";
+if (countM > 4 || countM == 0) str = "чисел";
+else if (countM == 1) str = "число";
+PrintInputUser(resultM);
+Console.Write($"-> {countM} {str} больше нуля");
+
+int GetCountNumbers(int[] num)
 {
-    Random rnd = new Random();
-    for (int i = 0; i < n; i++)
+    int length = num.Length;
+    int count = 0;
+    for (int i = 0; i < length; i++)
     {
-        array[i] = rnd.Next(-50, 50);
+        if (num[i] > 0) count++;
     }
+    return count;
 }
 
-void OutputArrayString(int[] arrayString)
+void PrintInputUser(int[] arrayString)
 {
-    string stringArray = "[";
+    string stringArray = " ";
 
     for (int i = 0; i < arrayString.Length; i++)
     {
@@ -24,20 +32,27 @@ void OutputArrayString(int[] arrayString)
     }
     int n = stringArray.Length;
     stringArray = stringArray.Remove(n - 2, 2);
-    stringArray += "]";
-    Console.Write($"Массив: {stringArray}");
+    stringArray += " ";
+    Console.Write($"{stringArray}");
 }
 
-void SumStandingElementsOddPositions(int[] number)
+void ExceptionHandling(string[] numbers)
 {
-    int sum = 0;
-    for (int i = 0; i < n; i++)
+    int length = numbers.Length;
+    bool yesInt;
+    for (int i = 0; i < length; i++)
     {
-        if (i % 2 != 0)
+        yesInt = int.TryParse(numbers[i], out int result);
+        if (yesInt)
         {
-            sum += number[i];
+            resultM[i] = result;
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("<{0}>", numbers[i]);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" -> Некорректный ввод!");
         }
     }
-    Console.WriteLine($" -> сумма чисел стоящих на нечётных позициях " +
-                      $"в массиве равна: {sum}");
 }
