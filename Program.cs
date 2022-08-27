@@ -1,58 +1,43 @@
-﻿Console.Write("Введите целые числа через пробел: ");
-string[] arrayM = Console.ReadLine().Split().ToArray();
+﻿Console.Write("Введите число для k1: ");
+string k1 = Console.ReadLine();
+Console.Write("Введите число для k2: ");
+string k2 = Console.ReadLine();
+Console.Write("Введите число для b1: ");
+string b1 = Console.ReadLine();
+Console.Write("Введите число для b2: ");
+string b2 = Console.ReadLine();
 
-int[] resultM = new int[arrayM.Length];
-
-ExceptionHandling(arrayM);
-int countM = GetCountNumbers(resultM);
-string str = "числа";
-if (countM > 4 || countM == 0) str = "чисел";
-else if (countM == 1) str = "число";
-PrintInputUser(resultM);
-Console.Write($"-> {countM} {str} больше нуля");
-
-int GetCountNumbers(int[] num)
+void ExceptionHandling(string a1, string a2, string c1, string c2)
 {
-    int length = num.Length;
-    int count = 0;
-    for (int i = 0; i < length; i++)
+    bool yesInt = double.TryParse(a1, out double d1);
+    bool yesInt1 = double.TryParse(a2, out double d2);
+    bool yesInt2 = double.TryParse(c1, out double f1);
+    bool yesInt3 = double.TryParse(c2, out double f2);
+
+    if (yesInt && yesInt1 && yesInt2 && yesInt3)
     {
-        if (num[i] > 0) count++;
+        double x = (f2 - f1) / (d1 - d2);
+        double y = ((f2 * d1) - (f1 * d2)) / (d1 - d2);
+        Console.BackgroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine($" x = {x:F1}; y = {y:F1} ");
+        Console.BackgroundColor = ConsoleColor.Black;
+        
     }
-    return count;
-}
-
-void PrintInputUser(int[] arrayString)
-{
-    string stringArray = " ";
-
-    for (int i = 0; i < arrayString.Length; i++)
+    else
     {
-        stringArray += $"{arrayString[i]}, ";
-    }
-    int n = stringArray.Length;
-    stringArray = stringArray.Remove(n - 2, 2);
-    stringArray += " ";
-    Console.Write($"{stringArray}");
-}
-
-void ExceptionHandling(string[] numbers)
-{
-    int length = numbers.Length;
-    bool yesInt;
-    for (int i = 0; i < length; i++)
-    {
-        yesInt = int.TryParse(numbers[i], out int result);
-        if (yesInt)
-        {
-            resultM[i] = result;
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("<{0}>", numbers[i]);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" -> Некорректный ввод!");
-        }
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write($"{a1}, {a2}, {c1}, {c2}");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine(" -> Некорректный ввод!");
     }
 }
+
+ExceptionHandling(k1, k2, b1, b2);
+
+// Раскоментируйте ниже для проверки
+// double b3 = y - d1 * x;
+// double k3 = (y - F1) / x;
+// double b3 = y - d2 * x;
+// double k3 = (y - f2) / x;
+// Console.WriteLine($"{d1} = {k3:F1}; {F1} = {b3:F1}");
+// Console.WriteLine($"{d1} = {k3:F1}; {F1} = {b3:F1}");
